@@ -1,4 +1,4 @@
-streamlit_app_code = r'''import streamlit as st
+import streamlit as st
 import pandas as pd
 import joblib
 import json
@@ -54,7 +54,10 @@ elif mode == "Contoh Format Input":
     st.write(CLUSTER_FEATURES)
 else:
     st.header("📁 Upload CSV Mahasiswa")
-    uploaded_file = st.file_uploader("Upload file CSV dengan kolom yang sama seperti dataset training", type=["csv"])
+    uploaded_file = st.file_uploader(
+        "Upload file CSV dengan kolom yang sama seperti dataset training",
+        type=["csv"]
+    )
 
     if uploaded_file is not None:
         df_input = pd.read_csv(uploaded_file)
@@ -96,9 +99,6 @@ else:
 
                 # Ringkasan cluster
                 st.subheader("Ringkasan Rata-rata per Cluster")
-                st.write(result_df.groupby("Cluster")[CLUSTER_FEATURES + ["Predicted_CGPA"]].mean())
-'''
-
-with open("streamlit_app.py", "w") as f:
-    f.write(streamlit_app_code)
-print("Generated: streamlit_app.py")
+                st.write(
+                    result_df.groupby("Cluster")[CLUSTER_FEATURES + ["Predicted_CGPA"]].mean()
+                )
